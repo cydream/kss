@@ -38,7 +38,7 @@ def load_data(mode="train"):
     if mode=="train":
         # Parse
         fpaths, text_lengths, texts = [], [], []
-        transcript = os.path.join(hp.data, 'transcript.v.1.1.txt')
+        transcript = os.path.join(hp.data, 'transcript.txt')
         lines = codecs.open(transcript, 'r', 'utf-8').readlines()
         for line in lines:
             fname, _, expanded, text, _ = line.strip().split("|")
@@ -58,7 +58,7 @@ def load_data(mode="train"):
                 elif hp.num_exp==4:
                     text = [j2shcj[char] for char in text]
                 text = chain.from_iterable(text)
-
+            print(fname)
             text = [char2idx[char] for char in text]
             text_lengths.append(len(text))
             texts.append(np.array(text, np.int32).tostring())
@@ -109,8 +109,8 @@ def get_batch():
 
         def _load_spectrograms(fpath):
             fname = os.path.basename(fpath)
-            mel = "/data/private/kss/dc_tts/mels/{}".format(fname.replace("wav", "npy"))
-            mag = "/data/private/kss/dc_tts/mags/{}".format(fname.replace("wav", "npy"))
+            mel = "/home/cydream/kss/ko/mels/{}".format(fname.replace("wav", "npy"))
+            mag = "/home/cydream/kss/ko/mags/{}".format(fname.replace("wav", "npy"))
             return fname, np.load(mel), np.load(mag)
 
         fname, mel, mag = tf.py_func(_load_spectrograms, [fpath], [tf.string, tf.float32, tf.float32])

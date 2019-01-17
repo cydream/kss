@@ -38,7 +38,7 @@ class Hyperparams:
     attention_win_size = 3
 
     # data
-    data = "/home/cydream/kss/datasets/fv02"
+    data = "change_here"
     test_data = "rats.txt"
 
     if num_exp == 0:
